@@ -1,5 +1,5 @@
 let completar = document.getElementById("Completar");
-
+let letraRepetida = [];
 const palabras = [
   "queso",
   "gato",
@@ -14,83 +14,96 @@ const palabras = [
 ];
 let palabra = palabras[Math.floor(Math.random() * palabras.length)];
 let guiones = palabra.replace(/./g, "_ ");
-let boton = document.getElementById("boton")
+let boton = document.getElementById("boton");
+let historial = document.getElementById("lista")
+let fallaste = true;
 boton.addEventListener("click", (e) => {
   completar.innerHTML = `            <div id="palabrasGuiones" hidden class=" flex items-center justify-center pb-[6rem] text-white font-bold text-[4rem]"  >
     ${guiones}</div>
-     <input maxlength="1"  id="letra" class="bg-white" type="text">
+     <input   maxlength="1"  id="letra" class="bg-white" type="text">
      <button id="boton2"  class="bg-neutral-50" >Comprobar</button>
      
     `;
 
+  letra = document.getElementById('letra')
+  letra.addEventListener("input", () => {
 
-
+  });
   let contador = 0;
-  let letra = "";
   let palabrasGuiones = document.getElementById("palabrasGuiones");
   let getLetter = document.getElementById("letra");
   let perdiste = document.getElementById("perdiste");
   let boton2 = document.getElementById("boton2");
-  let reinicio = document.getElementById('reinicio');
-  let siguiente = document.getElementById('siguiente');
+  let reinicio = document.getElementById("reinicio");
 
-  reinicio.hidden = false
-  siguiente.hidden = false
-  boton.hidden = true
+  reinicio.hidden = false;
+  boton.hidden = true;
 
-  boton2.addEventListener("click", () => {
-    let fallaste = true;
-    letra = getLetter.value;
-    for (let i in palabra) {
-      if (letra == palabra[i]) {
-        guiones =
-          guiones.substring(0, i * 2) + letra + guiones.substring(i * 2 + 1);
-        fallaste = false;
-      }
-    }
-    palabrasGuiones.innerHTML = `${guiones}`;
 
+
+  const contadorFallos = (fallaste) => {
     if (fallaste) {
       contador++;
       document.getElementById("ahorcado").style.backgroundPosition =
         -(200 * contador) + "px 0 ";
       if (contador == 4) {
-        fallaste = true;
-
-        perdiste.innerHTML = `<p>GAME OVER</p>`;
+        perdiste.innerHTML = `<p>GAME OVER</p>
+        <p class="text-center text-[1rem] ">La palabra es:   <p class="font-bold text-lime-400 text-center text-[1rem] ">${palabra}</p></p>`;
       }
     } else {
       if (guiones.indexOf("_") < 0) {
-        fallaste = true;
         perdiste.innerHTML = `<p>VICTORIA </p>`;
       }
     }
+  }
+
+  const fallo = (fallaste, letra) => {
+    for (let i in palabra) {
+      if (letra == palabra[i]) {
+        guiones =
+          guiones.substring(0, i * 2) + letra + guiones.substring(i * 2 + 1);
+        fallaste = false;
+
+      }
+    }
+
+    for (let i = 0; i < letraRepetida.length; i++) {
+      if (letraRepetida[i].includes(letra)) {
+        fallaste = true;
+        break;
+      }
+    }
+
+    contadorFallos(fallaste)
+  };
+
+  boton2.addEventListener("click", () => {
+
+    letra = getLetter.value;
+    fallo(fallaste, letra)
+
+    historial.innerHTML += `<p class="font-bold text-[1.5rem] text-white"> Has usado la letra: ${letra}</p>`
+
+    letraRepetida.push(guiones);
     getLetter.value = "";
     getLetter.focus();
   });
- 
-  reinicio.addEventListener ('click' , () => {
 
-    window.location.reload()
+  reinicio.addEventListener("click", () => {
+    window.location.reload();
   });
 
 
-  siguiente.addEventListener ('click' , () => {
-      palabra = palabras[Math.floor(Math.random() * palabras.length)];
-      guiones = palabra.replace(/./g, "_ ");
-      completar.innerHTML = `            <div id="palabrasGuiones" class=" flex items-center justify-center pb-[6rem] text-white font-bold text-[4rem]"  >
-    ${guiones}</div>
-     <input maxlength="1" id="letra" class="bg-white" type="text">
-     <button id="boton2" class="bg-neutral-50" >Comprobar</button>
-     
-    `;
-      document.getElementById("ahorcado").style.backgroundPosition = 0 + "px 0 ";
+  getLetter.addEventListener("keypress", (e) => {
+    if (e.keyCode == 13) {
+      historial.innerHTML += getLetter.value
+      letraRepetida.push(guiones);
+      fallo(fallaste, getLetter.value)
       getLetter.value = "";
       getLetter.focus();
-      perdiste.innerHTML = ``;
+      palabrasGuiones.innerHTML = `${guiones}`; 
+    }
 
   });
 
-
 });
-
