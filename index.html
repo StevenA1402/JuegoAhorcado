@@ -1,49 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Juego Ahorcado</title>
-  </head>
 
-  <body>
-    <main
-      id="container"
-      class="w-full h-screen bg-no-repeat bg-cover flex flex-col"
-      style="background-image: url('/Imagenes/fondo.jpg')"
-    >
-      <header class="flex items-center justify-center h-[20rem]">
-        <img src="/Imagenes/Sin título-1.png" class="w-full h-screen" alt="" />
-      </header>
-      
-      <div class="flex flex-col items-center justify-center">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Juego Ahorcado</title>
+</head>
 
-        <div class="text-[3rem] text-white font-bold" id="perdiste"></div>
+<body>
+  <main id="container" class="w-full h-screen bg-no-repeat bg-cover flex flex-col"
+    style="background-image: url('/Imagenes/fondo.jpg')">
+    <header class="flex items-center justify-center h-[20rem] ">
+      <img src="/Imagenes/TITULO.png" class=" h-screen" alt="" />
+    </header>
+    <div class="flex flex-col h-[1rem] items-center justify-center">
+      <div class="text-[3rem] text-white font-bold" id="perdiste"></div>
+    </div>
 
-        <div class="flex items-center justify-center h-[20rem]">
-          <div
-            id="ahorcado"
-            class="w-[200px] h-[200px] w- bg-[url('./Imagenes/hangman-game_pm-1024x212.png')]"
-          ></div>
-
-        </div>
-        <div
-          id="Completar"
-          class="flex items-center justify-center gap-[5rem]">
-        </div>
-        <div class="flex flex-col gap-[2rem]">
-          <button id="boton" class="bg-neutral-50">Comenzar</button>
-          <button id="reinicio" hidden class="bg-neutral-50">Reinicio</button>
+    <div class="flex flex-col   ">
+      <div id="1" class="flex pl-[30rem] gap-[30rem]">
+        <div id="ahorcado" class="w-[275px] h-full  bg-[url('./Imagenes/ahorcado1.png')]"></div>
+        <div class="flex h-[20rem]">
           <div id="lista" class="  items-center justify-end ">
-            <p>HOLA</p>
-        </div>
-        </div>
-
+          </div>
       </div>
 
-    </main>
-  </body>
-  <script src="/main.js"></script>
+
+      </div>
+      <div id="2" class="flex flex-col items-center justify-center">
+        <div id="Completar" class="flex items-center justify-center gap-[5rem]">
+        </div>
+        <div class="flex flex-col gap-[2rem]">
+          <button id="boton" class=" w-[15rem] h-[4rem] hover:bg-white hover:text-black text-[2rem] font-bold bg-black text-white rounded-md">Comenzar</button>
+          <button id="reinicio" hidden  class=" w-[15rem] h-[4rem] hover:bg-white hover:text-black text-[2rem] font-bold bg-black text-white rounded-md">Reinicio</button>
+
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+<script src="/main.js"></script>
+
 </html>
